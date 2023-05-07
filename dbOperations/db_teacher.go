@@ -17,7 +17,7 @@ func CreateTeacher(object *models.Teacher) (*models.Teacher, error) {
 
 func FindTeacher(teacherId string) (*models.Teacher, error) {
 	var teacher models.Teacher
-	err := DB.Collection("Teachers").FindOne(context.Background(), bson.M{"teacherid": teacherId}).Decode(teacher)
+	err := DB.Collection("Teachers").FindOne(context.Background(), bson.M{"teacherid": teacherId}).Decode(&teacher)
 	if err != nil {
 		return nil, err
 	}
