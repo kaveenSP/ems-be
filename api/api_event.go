@@ -8,56 +8,55 @@ import (
 	"net/http"
 )
 
-func CreateTeacherApi(c echo.Context) error {
-	payloadObj := models.Teacher{}
+func CreateEventApi(c echo.Context) error {
+	payloadObj := models.Event{}
 	//bind payload data
 	if err0 := c.Bind(&payloadObj); err0 != nil {
 		return c.String(http.StatusBadRequest, err0.Error())
 	}
 	//unique check
-	if err := functions.UC_teacher(payloadObj); err != nil {
+	if err := functions.UC_event(payloadObj); err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
-	returnVal, err := dbOperations.CreateTeacher(&payloadObj)
-	if err != nil {
-		return c.String(http.StatusBadRequest, err.Error())
-	}
-	returnVal.Password = ""
-	return c.JSON(http.StatusOK, returnVal)
-}
-
-func FindTeacherApi(c echo.Context) error {
-	teacherId := c.QueryParam("teacherId")
-	returnVal, err := dbOperations.FindTeacher(teacherId)
+	returnVal, err := dbOperations.CreateEvent(&payloadObj)
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, returnVal)
 }
 
-func FindAllTeachersApi(c echo.Context) error {
-	returnVal, err := dbOperations.FindAllTeachers()
+func FindEventApi(c echo.Context) error {
+	eventId := c.QueryParam("eventId")
+	returnVal, err := dbOperations.FindEvent(eventId)
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, returnVal)
 }
 
-func UpdateTeacherApi(c echo.Context) error {
-	payloadObj := models.Teacher{}
+func FindAllEventsApi(c echo.Context) error {
+	returnVal, err := dbOperations.FindAllTEvents()
+	if err != nil {
+		return c.String(http.StatusBadRequest, err.Error())
+	}
+	return c.JSON(http.StatusOK, returnVal)
+}
+
+func UpdateEventApi(c echo.Context) error {
+	payloadObj := models.Event{}
 	if err := c.Bind(&payloadObj); err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
-	returnVal, err := dbOperations.UpdateTeacher(&payloadObj)
+	returnVal, err := dbOperations.UpdateEvent(&payloadObj)
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, returnVal)
 }
 
-func DeleteTeacherApi(c echo.Context) error {
-	teacherId := c.QueryParam("teacherId")
-	returnVal, err := dbOperations.DeleteTeacher(teacherId)
+func DeleteEventApi(c echo.Context) error {
+	eventId := c.QueryParam("eventId")
+	returnVal, err := dbOperations.DeleteEvent(eventId)
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}

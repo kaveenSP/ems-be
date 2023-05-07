@@ -18,7 +18,12 @@ func EndpointManager(e *echo.Echo) {
 
 	g.POST("/teacher", CreateTeacherApi)
 	g.GET("/teacher", FindTeacherApi)
-	g.GET("/teachers", FindAllTeacherApi)
+	g.GET("/teachers", FindAllTeachersApi)
 	g.PUT("/teacher", UpdateTeacherApi)
 	g.DELETE("/teacher", DeleteTeacherApi)
+	g.POST("/event", CreateEventApi)
+	g.GET("/event", FindEventApi)
+	g.GET("/events", FindAllEventsApi)
+	g.PUT("/event", UpdateEventApi)
+	g.DELETE("/event", DeleteEventApi)
 }
