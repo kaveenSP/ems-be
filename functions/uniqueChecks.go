@@ -10,10 +10,9 @@ import (
 
 func UC_teacher(object models.Teacher) error {
 	teacher := models.Teacher{}
-	err := dbOperations.DB.Collection("Teachers").FindOne(context.Background(), bson.M{"teacherid": teacher.TeacherId}).Decode(&teacher)
+	err := dbOperations.DB.Collection("Teachers").FindOne(context.Background(), bson.M{"teacherid": object.TeacherId}).Decode(&teacher)
 	if err != nil {
-
 		return nil
 	}
-	return errors.New(object.FirstName + " " + "Already Exists")
+	return errors.New(teacher.FirstName + " " + "Already Exists")
 }
