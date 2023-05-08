@@ -16,6 +16,7 @@ func EndpointManager(e *echo.Echo) {
 		}
 	})
 
+	g.POST("/authenticate/login", LoginApi)
 	g.POST("/teacher", CreateTeacherApi)
 	g.GET("/teacher", FindTeacherApi)
 	g.GET("/teachers", FindAllTeachersApi)
@@ -26,4 +27,9 @@ func EndpointManager(e *echo.Echo) {
 	g.GET("/events", FindAllEventsApi)
 	g.PUT("/event", UpdateEventApi)
 	g.DELETE("/event", DeleteEventApi)
+	g.POST("/student", CreateStudentApi)
+	g.GET("/student", FindStudentApi)
+	g.GET("/students", FindAllStudentsApi)
+	g.PUT("/student", UpdateStudentApi)
+	g.DELETE("/student", DeleteStudentApi)
 }

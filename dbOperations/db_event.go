@@ -7,12 +7,12 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func CreateEvent(object *models.Event) (*models.Event, error) {
-	_, err := DB.Collection("Events").InsertOne(context.Background(), object)
+func CreateEvent(event *models.Event) (*models.Event, error) {
+	_, err := DB.Collection("Events").InsertOne(context.Background(), event)
 	if err != nil {
 		return nil, err
 	}
-	return object, nil
+	return event, nil
 }
 
 func FindEvent(eventId string) (*models.Event, error) {
