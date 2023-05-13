@@ -8,6 +8,15 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+func UC_admin(object models.Admin) error {
+	admin := models.Admin{}
+	err := dbOperations.DB.Collection("Admins").FindOne(context.Background(), bson.M{"adminid": object.AdminId}).Decode(&admin)
+	if err != nil {
+		return nil
+	}
+	return errors.New(admin.FirstName + " " + "Already Exists")
+}
+
 func UC_teacher(object models.Teacher) error {
 	teacher := models.Teacher{}
 	err := dbOperations.DB.Collection("Teachers").FindOne(context.Background(), bson.M{"teacherid": object.TeacherId}).Decode(&teacher)

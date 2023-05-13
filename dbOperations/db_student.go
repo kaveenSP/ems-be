@@ -56,7 +56,7 @@ func FindAllStudents() (*[]models.Student, error) {
 }
 
 func UpdateStudent(student *models.Student) (*models.Student, error) {
-	_, err := DB.Collection("Students").UpdateOne(context.Background(), bson.M{"Studentid": student.StudentId}, bson.M{"$set": student})
+	_, err := DB.Collection("Students").UpdateOne(context.Background(), bson.M{"studentid": student.StudentId}, bson.M{"$set": student})
 	if err != nil {
 		return nil, err
 	}

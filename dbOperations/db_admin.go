@@ -18,3 +18,19 @@ func FindAdminByEmail(email string) (*models.Admin, error) {
 	}
 	return &admin, nil
 }
+
+func CreateAdmin(event *models.Admin) (*models.Admin, error) {
+	_, err := DB.Collection("Admins").InsertOne(context.Background(), event)
+	if err != nil {
+		return nil, err
+	}
+	return event, nil
+}
+
+func UpdateAdmin(admin *models.Admin) (*models.Admin, error) {
+	_, err := DB.Collection("Admins").UpdateOne(context.Background(), bson.M{"adminid": admin.AdminId}, bson.M{"$set": admin})
+	if err != nil {
+		return nil, err
+	}
+	return admin, nil
+}
