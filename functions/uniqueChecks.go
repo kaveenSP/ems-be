@@ -43,3 +43,12 @@ func UC_event(object models.Event) error {
 	}
 	return errors.New(event.Name + " " + "Already Exists")
 }
+
+func UC_registeredEvent(object models.RegisteredEvent) error {
+	event := models.Event{}
+	err := dbOperations.DB.Collection("RegisteredEvents").FindOne(context.Background(), bson.M{"eventid": object.EventId, "studentid": object.StudentId}).Decode(&event)
+	if err != nil {
+		return nil
+	}
+	return errors.New(event.Name + " " + "Already Exists")
+}

@@ -58,5 +58,9 @@ func DeleteEventApi(c echo.Context) error {
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
+	_, err = dbOperations.DeleteAllRegisteredEventsByEventId(eventId)
+	if err != nil {
+		return c.String(http.StatusBadRequest, err.Error())
+	}
 	return c.JSON(http.StatusOK, returnVal)
 }

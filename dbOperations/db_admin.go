@@ -7,6 +7,14 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
+func CreateAdmin(event *models.Admin) (*models.Admin, error) {
+	_, err := DB.Collection("Admins").InsertOne(context.Background(), event)
+	if err != nil {
+		return nil, err
+	}
+	return event, nil
+}
+
 func FindAdminByEmail(email string) (*models.Admin, error) {
 	var admin models.Admin
 	err := DB.Collection("Admins").FindOne(context.Background(), bson.M{"email": email}).Decode(&admin)
@@ -17,14 +25,6 @@ func FindAdminByEmail(email string) (*models.Admin, error) {
 		return nil, errors.New("Teacher ID Not Found")
 	}
 	return &admin, nil
-}
-
-func CreateAdmin(event *models.Admin) (*models.Admin, error) {
-	_, err := DB.Collection("Admins").InsertOne(context.Background(), event)
-	if err != nil {
-		return nil, err
-	}
-	return event, nil
 }
 
 func UpdateAdmin(admin *models.Admin) (*models.Admin, error) {

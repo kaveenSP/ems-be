@@ -2,6 +2,7 @@ package models
 
 type Teacher struct {
 	TeacherId     string `json:"teacherId"`
+	Role          string `json:"role"`
 	FirstName     string `json:"firstName"`
 	LastName      string `json:"lastName"`
 	ContactNumber string `json:"contactNumber"`
