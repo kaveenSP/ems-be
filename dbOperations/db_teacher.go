@@ -7,17 +7,29 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func CreateTeacher(object *models.Teacher) (*models.Teacher, error) {
-	_, err := DB.Collection("Teachers").InsertOne(context.Background(), object)
+func CreateTeacher(teacher *models.Teacher) (*models.Teacher, error) {
+	_, err := DB.Collection("Teachers").InsertOne(context.Background(), teacher)
 	if err != nil {
 		return nil, err
 	}
-	return object, nil
+	return teacher, nil
 }
 
 func FindTeacher(teacherId string) (*models.Teacher, error) {
 	var teacher models.Teacher
 	err := DB.Collection("Teachers").FindOne(context.Background(), bson.M{"teacherid": teacherId}).Decode(&teacher)
+	if err != nil {
+		return nil, err
+	}
+	if teacher == (models.Teacher{}) {
+		return nil, errors.New("Teacher ID Not Found")
+	}
+	return &teacher, nil
+}
+
+func FindTeacherByEmail(email string) (*models.Teacher, error) {
+	var teacher models.Teacher
+	err := DB.Collection("Teachers").FindOne(context.Background(), bson.M{"email": email}).Decode(&teacher)
 	if err != nil {
 		return nil, err
 	}
