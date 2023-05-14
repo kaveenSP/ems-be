@@ -7,7 +7,11 @@ import (
 
 func EndpointManager(e *echo.Echo) {
 	e.Use(middleware.Logger())
-	e.Use(middleware.CORS())
+	e.Use(middleware.Recover())
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins:     []string{"http://localhost:4200"},
+		AllowCredentials: true,
+	}))
 
 	g := e.Group("/ems-planners/api")
 	g.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
@@ -16,7 +20,7 @@ func EndpointManager(e *echo.Echo) {
 		}
 	})
 
-	g.POST("/authenticate/login", LoginApi)
+	g.POST("/auth/login", LoginApi)
 	g.POST("/admin", CreateAdminApi)
 	g.PUT("/admin", UpdateAdmin)
 	g.POST("/teacher", CreateTeacherApi)
