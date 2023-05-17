@@ -42,4 +42,8 @@ func EndpointManager(e *echo.Echo) {
 	g.GET("/registeredEvent/studentId", FindAllRegisteredEventByStudentIdApi)
 	g.GET("/registeredEvent/eventId", FindAllRegisteredEventByEventIdApi)
 	g.PUT("/registeredEvent", UpdateRegisteredEventApi)
+	g.POST("/notice", CreateNoticeApi)
+	g.GET("/notices", FindAllNoticesApi)
+	g.PUT("/notice", UpdateNoticeApi)
+	g.DELETE("/notice", DeleteNoticeApi)
 }
