@@ -22,7 +22,7 @@ func FindAdminByEmail(email string) (*models.Admin, error) {
 		return nil, err
 	}
 	if admin == (models.Admin{}) {
-		return nil, errors.New("Teacher ID Not Found")
+		return nil, errors.New("Admin ID Not Found")
 	}
 	return &admin, nil
 }

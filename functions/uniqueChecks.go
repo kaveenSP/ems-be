@@ -61,3 +61,21 @@ func UC_notice(object models.Notice) error {
 	}
 	return errors.New(notice.Subject + " " + "Already Exists")
 }
+
+func UC_vote(object models.Vote) error {
+	vote := models.Vote{}
+	err := dbOperations.DB.Collection("Votes").FindOne(context.Background(), bson.M{"voteid": object.VoteId}).Decode(&vote)
+	if err != nil {
+		return nil
+	}
+	return errors.New(vote.Title + " " + "Already Exists")
+}
+
+func UC_singleVote(object models.SingleVote) error {
+	vote := models.SingleVote{}
+	err := dbOperations.DB.Collection("Votes").FindOne(context.Background(), bson.M{"voteid": object.VoteId, "studentid": vote.StudentId}).Decode(&vote)
+	if err != nil {
+		return nil
+	}
+	return errors.New(vote.StudentId + " " + "Has Already Voted")
+}

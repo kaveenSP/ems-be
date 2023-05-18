@@ -22,7 +22,7 @@ func FindEvent(eventId string) (*models.Event, error) {
 		return nil, err
 	}
 	if event == (models.Event{}) {
-		return nil, errors.New("Teacher ID Not Found")
+		return nil, errors.New("Event ID Not Found")
 	}
 	return &event, nil
 }

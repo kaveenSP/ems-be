@@ -45,7 +45,7 @@ func DeleteNotice(noticeId string) (*models.Notice, error) {
 		return nil, err
 	}
 	if res.DeletedCount < 1 {
-		return nil, errors.New("Teacher ID Not Found")
+		return nil, errors.New("Notice ID Not Found")
 	}
 	return nil, nil
 }

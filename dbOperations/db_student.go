@@ -69,7 +69,7 @@ func DeleteStudent(studentId string) (*models.Student, error) {
 		return nil, err
 	}
 	if res.DeletedCount < 1 {
-		return nil, errors.New("Teacher ID Not Found")
+		return nil, errors.New("Student ID Not Found")
 	}
 	return nil, nil
 }
