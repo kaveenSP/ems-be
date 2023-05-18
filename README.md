@@ -7,3 +7,4 @@
 5) Student Profile Management
 6) Attendance Marking
 7) Broadcasting Notifications
+8) Voting System
