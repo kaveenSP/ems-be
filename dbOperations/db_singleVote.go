@@ -3,6 +3,7 @@ package dbOperations
 import (
 	"context"
 	"ems-be/models"
+	"errors"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
@@ -52,6 +53,17 @@ func UpdateSingleVote(singleVote *models.SingleVote) (*models.SingleVote, error)
 		return nil, err
 	}
 	return singleVote, nil
+}
+
+func DeleteSingleVote(voteId string, studentId string) (*models.Student, error) {
+	res, err := DB.Collection("SingleVotes").DeleteOne(context.Background(), bson.M{"voteId": voteId, "studentid": studentId})
+	if err != nil {
+		return nil, err
+	}
+	if res.DeletedCount < 1 {
+		return nil, errors.New("Student ID Not Found")
+	}
+	return nil, nil
 }
 
 func DeleteAllSingleVotesByVoteId(voteId string) (*models.SingleVote, error) {
