@@ -57,7 +57,7 @@ func DeleteVoteApi(c echo.Context) error {
 	return c.JSON(http.StatusOK, returnVal)
 }
 
-func GetVoteResults(c echo.Context) error {
+func GetVoteResultsApi(c echo.Context) error {
 	var voteResults []models.VoteResult
 
 	voteId := c.QueryParam("voteId")

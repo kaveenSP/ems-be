@@ -53,4 +53,5 @@ func EndpointManager(e *echo.Echo) {
 	g.POST("/singleVote", CreateSingleVoteApi)
 	g.PUT("/singleVote", UpdateSingleVoteApi)
 	g.DELETE("/singleVote/voteId/studentId", DeleteSingleVoteApi)
+	g.GET("/voteResults/voteId", GetVoteResultsApi)
 }
