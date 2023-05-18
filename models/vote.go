@@ -5,4 +5,5 @@ type Vote struct {
 	Title     string   `json:"title"`
 	TeacherId string   `json:"teacherId"`
 	Options   []string `json:"options"`
+	Status    string   `json:"status"`
 }
