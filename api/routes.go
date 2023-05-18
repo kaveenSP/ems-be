@@ -46,4 +46,11 @@ func EndpointManager(e *echo.Echo) {
 	g.GET("/notices", FindAllNoticesApi)
 	g.PUT("/notice", UpdateNoticeApi)
 	g.DELETE("/notice", DeleteNoticeApi)
+	g.POST("/vote", CreateVoteApi)
+	g.GET("/votes", FindAllVotesApi)
+	g.PUT("/vote", UpdateVoteApi)
+	g.DELETE("/vote", DeleteVoteApi)
+	g.POST("/singleVote", CreateSingleVoteApi)
+	g.PUT("/singleVote", UpdateSingleVoteApi)
+	g.DELETE("/singleVote/voteId/studentId", DeleteSingleVoteApi)
 }

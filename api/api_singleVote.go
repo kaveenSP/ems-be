@@ -34,3 +34,13 @@ func UpdateSingleVoteApi(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, returnVal)
 }
+
+func DeleteSingleVoteApi(c echo.Context) error {
+	voteId := c.QueryParam("voteId")
+	studentId := c.QueryParam("studentId")
+	returnVal, err := dbOperations.DeleteSingleVote(voteId, studentId)
+	if err != nil {
+		return c.String(http.StatusBadRequest, err.Error())
+	}
+	return c.JSON(http.StatusOK, returnVal)
+}
