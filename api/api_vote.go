@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/labstack/echo/v4"
 	"net/http"
+	"time"
 )
 
 func CreateVoteApi(c echo.Context) error {
@@ -17,6 +18,8 @@ func CreateVoteApi(c echo.Context) error {
 	if err := functions.UC_vote(payloadObj); err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
+	// Convert the date into the desired format
+	payloadObj.CreatedAt = time.Now().Format("02/01/2006")
 	returnVal, err := dbOperations.CreateVote(&payloadObj)
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
