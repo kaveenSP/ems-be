@@ -55,7 +55,7 @@ func UC_registeredEvent(object models.RegisteredEvent) error {
 
 func UC_notice(object models.Notice) error {
 	notice := models.Notice{}
-	err := dbOperations.DB.Collection("Notices").FindOne(context.Background(), bson.M{"noticeId": object.NoticeId}).Decode(&notice)
+	err := dbOperations.DB.Collection("Notices").FindOne(context.Background(), bson.M{"noticeid": object.NoticeId}).Decode(&notice)
 	if err != nil {
 		return nil
 	}
