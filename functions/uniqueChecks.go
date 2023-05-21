@@ -27,12 +27,12 @@ func UC_teacher(object models.Teacher) error {
 }
 
 func UC_student(object models.Student) error {
-	teacher := models.Teacher{}
-	err := dbOperations.DB.Collection("Students").FindOne(context.Background(), bson.M{"studentid": object.StudentId}).Decode(&teacher)
+	student := models.Student{}
+	err := dbOperations.DB.Collection("Students").FindOne(context.Background(), bson.M{"studentid": object.StudentId}).Decode(&student)
 	if err != nil {
 		return nil
 	}
-	return errors.New(teacher.FirstName + " " + "Already Exists")
+	return errors.New(student.FirstName + " " + "Already Exists")
 }
 
 func UC_event(object models.Event) error {
