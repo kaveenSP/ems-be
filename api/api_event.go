@@ -1,6 +1,7 @@
 package api
 
 import (
+	"ems-be/amazon_s3"
 	"ems-be/dbOperations"
 	"ems-be/functions"
 	"ems-be/models"
@@ -16,10 +17,29 @@ func CreateEventApi(c echo.Context) error {
 	if err := functions.UC_event(payloadObj); err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
+
+	// Create an AWS session and S3 client
+	svc, err := amazon_s3.InitiateConnectionWithImageService()
+	print(svc)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	// Upload the image to S3
+	imagePath, err := amazon_s3.UploadImageToS3(svc, payloadObj.ImagePath)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+
+	// Set the S3 image path in the event object
+	payloadObj.ImagePath = imagePath
+
+	// Save the event to the database
 	returnVal, err := dbOperations.CreateEvent(&payloadObj)
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
+
 	return c.JSON(http.StatusOK, returnVal)
 }
 
