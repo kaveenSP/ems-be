@@ -20,7 +20,6 @@ func CreateStudentApi(c echo.Context) error {
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
-	returnVal.Password = ""
 	return c.JSON(http.StatusOK, returnVal)
 }
 
