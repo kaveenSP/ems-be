@@ -1,6 +1,7 @@
 package api
 
 import (
+	"ems-be/amazon_s3"
 	"ems-be/dbOperations"
 	"ems-be/functions"
 	"ems-be/models"
@@ -18,11 +19,22 @@ func CreateTeacherApi(c echo.Context) error {
 	if err := functions.UC_teacher(payloadObj); err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
+	// Create an AWS session and S3 client
+	svc, err := amazon_s3.InitiateConnectionWithImageService()
+	print(svc)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+	imagePath, err := amazon_s3.UploadImageToS3(svc, payloadObj.ImagePath)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, err.Error())
+	}
+	// Set the S3 image path in the event object
+	payloadObj.ImagePath = imagePath
 	returnVal, err := dbOperations.CreateTeacher(&payloadObj)
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
-	returnVal.Password = ""
 	return c.JSON(http.StatusOK, returnVal)
 }
 
