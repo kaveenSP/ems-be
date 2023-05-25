@@ -11,30 +11,35 @@ import (
 
 func CreateTeacherApi(c echo.Context) error {
 	payloadObj := models.Teacher{}
-	//bind payload data
 	if err0 := c.Bind(&payloadObj); err0 != nil {
 		return c.String(http.StatusBadRequest, err0.Error())
 	}
-	//unique check
 	if err := functions.UC_teacher(payloadObj); err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
+
 	// Create an AWS session and S3 client
 	svc, err := amazon_s3.InitiateConnectionWithImageService()
 	print(svc)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
+
+	// Upload the image to S3
 	imagePath, err := amazon_s3.UploadImageToS3(svc, payloadObj.ImagePath)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
 	}
+
 	// Set the S3 image path in the event object
 	payloadObj.ImagePath = imagePath
+
+	// Save the event to the database
 	returnVal, err := dbOperations.CreateTeacher(&payloadObj)
 	if err != nil {
 		return c.String(http.StatusBadRequest, err.Error())
 	}
+
 	return c.JSON(http.StatusOK, returnVal)
 }
 
