@@ -12,8 +12,8 @@ import (
 
 func InitiateConnectionWithImageService() (*s3.S3, error) {
 	sess, err := session.NewSession(&aws.Config{
-		Region:      aws.String("ap-south-1"),
-		Credentials: credentials.NewStaticCredentials("AKIA2C7SLADN4OIZIC75", "1zEnX3iPImKBLtzm7Rl3izM566fwc9+RMsLHtFtI", ""),
+		Region:      aws.String("ap-southeast-1"),
+		Credentials: credentials.NewStaticCredentials("AKIA2C7SLADN624VKBUA", "jjL2Vs8b25iSDhM3XHYKezfgbs4CYdAjJtOsFzlI", ""),
 	})
 	if err != nil {
 		return nil, err
@@ -23,7 +23,7 @@ func InitiateConnectionWithImageService() (*s3.S3, error) {
 }
 
 func UploadImageToS3(svc *s3.S3, imagePath string) (string, error) {
-	bucketName := "ems-planners-images"
+	bucketName := "ems-planners"
 	imageKey := "images/" + uuid.New().String()
 	imageData, err := base64.StdEncoding.DecodeString(imagePath)
 	if err != nil {
@@ -38,5 +38,5 @@ func UploadImageToS3(svc *s3.S3, imagePath string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return "https://s3.ap-south-1.amazonaws.com/" + bucketName + "/" + imageKey, nil
+	return "https://s3.ap-southeast-1.amazonaws.com/" + bucketName + "/" + imageKey, nil
 }
