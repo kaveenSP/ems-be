@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-const DB_URI = "mongodb+srv://admin:XkWygbyANzWcnyZV@cluster0.yfasncs.mongodb.net/?retryWrites=true&w=majority"
+const DB_URI = ""
 const DB_NAME = "Planners"
 
 var DB *mongo.Database
