@@ -13,7 +13,7 @@ import (
 func InitiateConnectionWithImageService() (*s3.S3, error) {
 	sess, err := session.NewSession(&aws.Config{
 		Region:      aws.String("ap-southeast-1"),
-		Credentials: credentials.NewStaticCredentials("AKIA2C7SLADN624VKBUA", "jjL2Vs8b25iSDhM3XHYKezfgbs4CYdAjJtOsFzlI", ""),
+		Credentials: credentials.NewStaticCredentials("", "", ""),
 	})
 	if err != nil {
 		return nil, err
